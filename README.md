@@ -1,2 +1,2 @@
 # js-blockchain
-Super simple blockchain (without network consensus)
+Super simple blockchain (simulating network consensus)
