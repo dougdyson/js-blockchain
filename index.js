@@ -3,7 +3,7 @@ const { createHash } = require('crypto');
 const createBlockHash = (block) => {
   const hash = createHash('sha256');
   hash.update(block);
-  return block.hash = hash.digest('hex');
+  return hash.digest('hex');
 }
 
 const createBlock = (data) => {
