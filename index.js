@@ -1,22 +1,24 @@
 const { createHash } = require('crypto');
 
-const blockchain = [{id: '1', timestamp: Date.now(), data: [{description: 'genesis block'}], hash: '', prevHash: 0}];
-
 const createBlockHash = (block) => {
   const hash = createHash('sha256');
-  hash.update(blockHash);
+  hash.update(block);
   return block.hash = hash.digest('hex');
 }
 
 const createBlock = (data) => {
-  const id        = blockchain.length; //?
+  const id        = blockchain.length + 1;
   const timestamp = Date.now();
-  const prevHash  = blockchain[blockchain.length - 1].hash //?
-  const blockHash = id + timestamp + prevHash + data.toString();
-  const hash      = createBlockHash(blockHash);
+  const prevHash  = blockchain[blockchain.length - 1].hash 
+  const hash      = createBlockHash(id + timestamp + prevHash + data.toString());
   return blockchain.push({id, timestamp, data, hash, prevHash});
 }
 
-createBlock({description:'second block'}); //?
+// create genesis block
+const blockchain = [{id: '1', timestamp: Date.now(), data: {description: 'genesis block'}, hash: '', prevHash: 0}];
+blockchain[0].hash = createBlockHash(blockchain[0].toString());
 
-blockchain[1]//?
+createBlock({description:'second block'}); //?
+createBlock({description:'third block'});//?
+
+blockchain[2].data.description//?
