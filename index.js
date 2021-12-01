@@ -17,6 +17,6 @@ const createBlock = (data) => {
   return blockchain.push({id, timestamp, data, hash, prevHash});
 }
 
-createBlock('second block'); //?
+createBlock({description:'second block'}); //?
 
 blockchain[1]//?
