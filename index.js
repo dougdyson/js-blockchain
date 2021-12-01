@@ -14,6 +14,13 @@ const createBlock = (data) => {
   return blockchain.push({id, timestamp, data, hash, prevHash});
 }
 
+const validateBlockchain = (blockchain) => {
+  for (let i = 1; i < blockchain.length; i++) {
+    if (blockchain[i].prevHash != blockchain[i - 1].hash) return false
+  }
+  return true;
+}
+
 // create genesis block
 const blockchain = [{id: '1', timestamp: Date.now(), data: {description: 'genesis block'}, hash: '', prevHash: 0}];
 blockchain[0].hash = createBlockHash(blockchain[0].toString());
@@ -24,5 +31,5 @@ createBlock({description:'third block'});
 blockchain[0].hash     //?
 blockchain[1].prevHash //?
 blockchain[1].hash     //?
-blockchain[2].prevHash //?
-blockchain[2].hash     //?
+blockchain[2].prevHash //?  //?
+validateBlockchain(blockchain) //?
