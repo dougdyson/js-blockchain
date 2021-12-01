@@ -7,7 +7,7 @@ const createBlock = (data) => {
   const timestamp = Date.now();
   const prevHash  = blockchain[blockchain.length - 1].hash || 0
   const nonce     = Math.random();
-  const hash      = calculateBlockHash(id + timestamp + prevHash + data.toString()+nonce);
+  const hash      = calculateBlockHash(id + timestamp + prevHash + data.toString() + nonce);
   return blockchain.push({id, timestamp, data, hash, prevHash, nonce});
 }
 
@@ -35,10 +35,9 @@ createBlock({description:'second block'});
 createBlock({description:'third block'});
 createBlock({description:'fourth block'});
 
+// Testing via Quokka in-line IDE evaluation: //?
 // validate blockchain integrity
 validateBlockchain(blockchain) //?
-
-// Testing via Quokka in-line IDE evaluation: //?
 blockchain[0].hash     //?
 blockchain[1].prevHash //?
 blockchain[1].hash     //?
