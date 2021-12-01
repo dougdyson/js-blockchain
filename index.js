@@ -16,6 +16,7 @@ const createBlock = (data) => {
 
 const validateBlockchain = () => {
   // start comparison from second block
+  // redo to check/re-hash
   for (let i = 1; i < blockchain.length; i++) {
     if (blockchain[i].prevHash != blockchain[i - 1].hash) return false
   }
