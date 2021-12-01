@@ -18,7 +18,7 @@ const createBlock = (data) => {
 const blockchain = [{id: '1', timestamp: Date.now(), data: {description: 'genesis block'}, hash: '', prevHash: 0}];
 blockchain[0].hash = createBlockHash(blockchain[0].toString());
 
-createBlock({description:'second block'}); //?
-createBlock({description:'third block'});//?
-
+// testing
+createBlock({description:'second block'}); 
+createBlock({description:'third block'});
 blockchain[2].data.description//?
