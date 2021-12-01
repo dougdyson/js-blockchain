@@ -14,7 +14,7 @@ const createBlock = (data) => {
   return blockchain.push({id, timestamp, data, hash, prevHash});
 }
 
-const validateBlockchain = (blockchain) => {
+const validateBlockchain = () => {
   // start comparison from second block
   for (let i = 1; i < blockchain.length; i++) {
     if (blockchain[i].prevHash != blockchain[i - 1].hash) return false
@@ -23,15 +23,15 @@ const validateBlockchain = (blockchain) => {
 }
 
 // create genesis block
-const blockchain = [{id: '1', timestamp: Date.now(), data: {description: 'genesis block'}, hash: '', prevHash: 0}];
+const blockchain   = [{id: '1', timestamp: Date.now(), data: {description: 'genesis block'}, hash: '', prevHash: 0}];
 blockchain[0].hash = createBlockHash(blockchain[0].toString());
 
 // create some blocks
 createBlock({description:'second block'}); 
 createBlock({description:'third block'});
 
-// check blockchain integrity
-validateBlockchain(blockchain); //?
+// validate blockchain integrity
+validateBlockchain(); //?
 
 // Testing via Quokka in-line IDE evaluation: //?
 blockchain[0].hash     //?
