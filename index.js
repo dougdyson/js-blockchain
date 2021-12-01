@@ -1,10 +1,6 @@
-const { createHash } = require('crypto');
+const { createHmac } = require('crypto');
 
-const createBlockHash = (block) => {
-  const hash = createHash('sha256');
-  hash.update(block);
-  return hash.digest('hex');
-}
+const createBlockHash = (block) =>  createHmac('sha256', 'secret').update(block).digest('hex');
 
 const createBlock = (data) => {
   const id        = blockchain.length + 1;
@@ -14,11 +10,17 @@ const createBlock = (data) => {
   return blockchain.push({id, timestamp, data, hash, prevHash});
 }
 
-const validateBlockchain = () => {
+const validateBlockchain = (bc) => {
   // start comparison from second block
-  // redo to check/re-hash
-  for (let i = 1; i < blockchain.length; i++) {
-    if (blockchain[i].prevHash != blockchain[i - 1].hash) return false
+  for (let i = 1; i < bc.length; i++) {
+    
+    // recalculated hash must match block's recorded hash
+    const block     = bc[i];
+    const blockData = block.id + block.timestamp + block.prevHash + block.data.toString;
+    if (block.hash != createBlockHash(blockData)) return false;
+    
+    // confirm previous hash has matches hash on previous block
+    if (bc[i].prevHash != bc[i - 1].hash) return false;
   }
   return true;
 }
@@ -30,12 +32,15 @@ blockchain[0].hash = createBlockHash(blockchain[0].toString());
 // create some blocks
 createBlock({description:'second block'}); 
 createBlock({description:'third block'});
+createBlock({description:'fourth block'});
 
 // validate blockchain integrity
-validateBlockchain(); //?
+validateBlockchain(blockchain); //?
 
 // Testing via Quokka in-line IDE evaluation: //?
 blockchain[0].hash     //?
 blockchain[1].prevHash //?
 blockchain[1].hash     //?
 blockchain[2].prevHash //?
+blockchain[2].hash     //?
+blockchain[3].prevHash //?
