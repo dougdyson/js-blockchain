@@ -21,5 +21,8 @@ blockchain[0].hash = createBlockHash(blockchain[0].toString());
 // Quokka testing //?
 createBlock({description:'second block'}); 
 createBlock({description:'third block'});
-blockchain[0].hash //?
+blockchain[0].hash     //?
 blockchain[1].prevHash //?
+blockchain[1].hash     //?
+blockchain[2].prevHash //?
+blockchain[2].hash     //?
