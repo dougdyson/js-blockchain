@@ -10,8 +10,8 @@ const calculateHash = (data) => createHmac('sha256', 'secret').update(data).dige
 // add a block
 array.push({hash: calculateHash('a').toString(), data: 'a'});
 
-// here's the hash
-array[0]; //?
+// here's the block hash
+array[0].hash; //?
 
 // hack the block data!
 array[0].data = 'b';
