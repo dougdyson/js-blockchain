@@ -10,7 +10,7 @@ const newBlock = (data) => {
   const timestamp = Date.now();
   const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
   const nonce     = Math.floor(Math.random() * id)
-  const hash      = calculateHash(id + prevHash + data);
+  const hash      = calculateHash(id + timestamp + prevHash + data);
   return {id, timestamp, prevHash, nonce, hash, data}
 }
 
@@ -33,7 +33,7 @@ bc.hash //?
 
 bc.data = 'hack';
 bc.data; //?
-const hashableFields = bc.id + bc.prevHash + bc.data;
+const hashableFields = bc.id + bc.timestamp + bc.prevHash + bc.data;
 const hack = calculateHash(hashableFields); //?
 
 (bc.hash === hack) ? true : false //?
