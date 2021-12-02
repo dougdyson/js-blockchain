@@ -15,7 +15,20 @@ const newBlock = (data) => {
   return {id, timestamp, prevHash, nonce, hash, data}
 }
 
-// create genesis block
+// Proof-of-Work
+const mineBlock = (difficulty) => {
+  let nonce = 0;
+  let hash = calculateHash(nonce.toString())
+  while (hash.substring(0, difficulty) != Array(difficulty + 1).join('0')) {
+    nonce++;
+    hash = calculateHash(nonce.toString()) //?
+  }
+}
+
+const test = mineBlock(3);
+
+
+// create genesis block 
 blockchain.push(newBlock('genesis block'));
 
 // create some more blocks
