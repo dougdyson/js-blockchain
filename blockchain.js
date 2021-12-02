@@ -46,7 +46,6 @@ bc.data //?
 bc.data  = 'hack';
 
 const hack = calculateHash(bc.id + bc.timestamp + bc.prevHash + bc.nonce + bc.data); //?
-hack; //?
 
 // false if hacked, true if not
 (bc.hash === hack) ? true : false //?
