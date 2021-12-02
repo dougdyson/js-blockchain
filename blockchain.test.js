@@ -1,4 +1,6 @@
-const blockchain = require('./blockchain');
+import { createBlock } from "./blockchain";
 
-const genesisBlock = addBlock('genesis block');
+const genesisBlock = createBlock({description: 'genesis block'});
+
+genesisBlock.data //?
 
