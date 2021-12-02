@@ -1,6 +1,7 @@
 const { createHmac } = require('crypto');
 
 const blockchain = [];
+const difficulty = 3;
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
@@ -23,9 +24,10 @@ const mineBlock = (difficulty) => {
     nonce++;
     hash = calculateHash(nonce.toString()) //?
   }
+  hash;
 }
 
-const test = mineBlock(3);
+const test = mineBlock(difficulty);
 
 
 // create genesis block 
