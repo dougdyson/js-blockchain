@@ -1,20 +1,20 @@
 const { createHmac } = require('crypto');
 
 const blockchain = [];
-const difficulty = 5; // for Proof-of-Work
+const difficulty = 1; // for Proof-of-Work
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
 // add a new block
 const newBlock = (data) => {
   proofOfWork(difficulty);
-  const id        = blockchain.length - 1;
+  const id        = blockchain.length + 1;
   const timestamp = Date.now();
   // need to account for genesis block, which does not have a prevHash to reference
   const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
   const nonce     = Math.floor(Math.random() * timestamp)
   const hash      = calculateHash(id + timestamp + prevHash + nonce + data);
-  console.log(`Block added! Hash: ${hash}`);
+  console.log(`Block added! data: ${data}, Hash: ${hash}`);
   return {id, timestamp, prevHash, nonce, hash, data}
 }
 
@@ -26,7 +26,6 @@ const proofOfWork = (difficulty) => {
     nonce++;
     hash = calculateHash(nonce.toString()) //?
   }
-  console.log(`nonce: ${nonce}`);
 }
 
 // create genesis block 
@@ -42,11 +41,9 @@ blockchain.push(newBlock('fourth block'));
 // TESTING
 // =============================================
 const bc = blockchain[1];
-bc.hash; //?
-bc.data //?
-bc.data  = 'hack';
 
-const hack = calculateHash(bc.id + bc.timestamp + bc.prevHash + bc.nonce + bc.data); //?
+bc.data  = 'hack';
+const rehash = calculateHash(bc.id + bc.timestamp + bc.prevHash + bc.nonce + bc.data); //?
 
 // false if hacked, true if not
-(bc.hash === hack) ? true : false //?
+(bc.hash === rehash) ? true : false; //?
