@@ -28,6 +28,7 @@ blockchain.push(newBlock('fourth block'));
 // TESTING
 // =============================================
 const bc = blockchain[1];
+bc.data //?
 bc.data  = 'hack';
 
 const hack = calculateHash(bc.id + bc.timestamp + bc.prevHash + bc.nonce + bc.data); //?
