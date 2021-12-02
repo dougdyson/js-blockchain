@@ -1,7 +1,7 @@
 const { createHmac } = require('crypto');
 
 const blockchain = [];
-const difficulty = 5; // for Proof-of-Work
+const difficulty = 6; // for Proof-of-Work
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
@@ -26,6 +26,7 @@ const proofOfWork = (difficulty) => {
     nonce++;
     hash = calculateHash(nonce.toString()) //?
   }
+  console.log(`nonce: ${nonce}`);
 }
 
 // create genesis block 
