@@ -14,7 +14,6 @@ const newBlock = (data) => {
   const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
   const nonce     = Math.floor(Math.random() * timestamp)
   const hash      = calculateHash(id + timestamp + prevHash + nonce + data);
-  console.log(`Block added! data: ${data}, Hash: ${hash}`);
   return {id, timestamp, prevHash, nonce, hash, data}
 }
 
@@ -40,10 +39,8 @@ blockchain.push(newBlock('fourth block'));
 // =============================================
 // TESTING
 // =============================================
-const bc = blockchain[1];
-
-bc.data  = 'hack';
-const rehash = calculateHash(bc.id + bc.timestamp + bc.prevHash + bc.nonce + bc.data); //?
-
+const bc2 = blockchain[2];
+// bc2.data  = 'hack';
+const rehash = calculateHash(bc2.id + bc2.timestamp + bc2.prevHash + bc2.nonce + bc2.data);
 // false if hacked, true if not
-(bc.hash === rehash) ? true : false; //?
+(bc2.hash === rehash) ? true : false; //?
