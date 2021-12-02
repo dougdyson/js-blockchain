@@ -1,7 +1,12 @@
 # js-blockchain
 Super simple blockchain (simulating network consensus)
 
-* learn blockchain fundamentals
-* transaction flow
-* ethereum vs blockchain vs cadence
-* conduct experiments
+[x] learn blockchain fundamentals
+[] transaction flow
+[] ethereum vs blockchain vs cadence
+[] conduct experiments?
+
+## A Story of a Tool and a Rabbit Hole
+I use Quokka, which is an awesome inline real-time JS evaluation tool, allowing me see variable values right in the IDE in real time without having to console.log out.
+
+However, after some hours, I discovered Quokka updates use both Date.now() and Math.random() 
