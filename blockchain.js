@@ -10,35 +10,30 @@ const newBlock = (data) => {
   const timestamp = Date.now();
   const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
   const nonce     = Math.floor(Math.random() * id)
-  const hash      = calculateHash(id + prevHash + nonce + data).toString();
+  const hash      = calculateHash(id + prevHash + data);
   return {id, timestamp, prevHash, nonce, hash, data}
 }
 
 // create genesis block
-blockchain.push(newBlock({description: 'genesis block'}));
+blockchain.push(newBlock('genesis block'));
 
 // create some more blocks
-blockchain.push(newBlock({description: 'second block'}))
-blockchain.push(newBlock({description: 'third block'}))
-blockchain.push(newBlock({description: 'fourth block'}))
+blockchain.push(newBlock('second block'));
+blockchain.push(newBlock('third block'));
+blockchain.push(newBlock('fourth block'));
 
 
 // =============================================
 // TESTING
 // =============================================
+const bc = blockchain[1];
 
-// HACK TEST
-// here's the block hash
-const bc = blockchain[1]
-const hashableFields = (bc.id + bc.timestamp + bc.prevHash + bc.nonce + bc.data).toString()
-bc.hash; //?
+bc.data; //?
+bc.hash //?
 
-// hack the genesis block data!
-bc.data.description = 'hack'; //?
-const hackHash = calculateHash((hashableFields).toString())
-hackHash
+bc.data = 'hack';
+bc.data; //?
+const hashableFields = bc.id + bc.prevHash + bc.data;
+const hack = calculateHash(hashableFields); //?
 
-// hash won't match for hacked data
-bc.hash != calculateHash(hashableFields) //?
-
-// PREVIOUS HASH CHECK
+(bc.hash === hack) ? true : false //?
