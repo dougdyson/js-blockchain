@@ -5,9 +5,8 @@ const difficulty = 1; // for Proof-of-Work
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
-// add a new block
 const newBlock = (transaction) => {
-  proofOfWork(difficulty);
+  proofOfWork(difficulty); 
   const timestamp = Date.now();
   // need to account for genesis block, which does not have a prevHash to reference
   const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
@@ -18,6 +17,8 @@ const newBlock = (transaction) => {
 
 // Proof-of-Work
 // This is not a real PoW, just a fancy loop using hashing for illustrative purposes
+// Was first rehashing block while incrementing its nonce but it was SO SLOW!
+// (p.s. PoW is essentially a transaction throttle)
 const proofOfWork = (difficulty) => {
   let nonce = 0;
   let hash  = '';
@@ -41,6 +42,7 @@ blockchain.push(newBlock('fourth block'));
 // =============================================
 
 // HACK BY CHANGING A TRANSACTION VALUE
+// ====================================
 const bc3 = blockchain[3];
 // comment or uncomment below line to test
 // bc3.transaction  = 'hack';
