@@ -5,11 +5,11 @@ let difficulty = 1; // for Proof-of-Work
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
-const addBlock = (transaction) => {
+const addBlock = (transaction, blockchain) => {
   proofOfWork(difficulty); 
   const timestamp = Date.now();
   // need to account for genesis block, which does not have a prevHash to reference
-  const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
+  const prevHash  = blockchain[blockchain.length - 1].hash
   const hash      = calculateHash(timestamp + prevHash + transaction);
   const block     = {timestamp, prevHash, hash, transaction};
   return block;
