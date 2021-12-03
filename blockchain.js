@@ -3,26 +3,27 @@ const { createHmac } = require('crypto');
 const blockchain = [];
 const difficulty = 1; // for Proof-of-Work
 
-const calculateHash = (transaction) => createHmac('sha256', 'secret').update(transaction).digest('hex');
+const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
 // add a new block
 const newBlock = (transaction) => {
+  proofOfWork(difficulty);
   const timestamp = Date.now();
   // need to account for genesis block, which does not have a prevHash to reference
   const prevHash  = (blockchain.length === 0) ? null : blockchain[blockchain.length - 1].hash
-  const nonce     = 0
-  const hash      = calculateHash(timestamp + prevHash + nonce + transaction);
-  const block     = {timestamp, prevHash, nonce, hash, transaction}
-  proofOfWork(block);
+  const hash      = calculateHash(timestamp + prevHash + transaction);
+  const block     = {timestamp, prevHash, hash, transaction};
   return block;
 }
 
 // Proof-of-Work
-// This is not a real PoW, just a fancy delay using hashing for illustrate purposes
-const proofOfWork = (block) => {
-  while (block.hash.substring(0, difficulty) != Array(difficulty + 1).join('0')) {
-    block.nonce++;
-    block.hash = calculateHash(block.nonce.toString());
+// This is not a real PoW, just a fancy loop using hashing for illustrative purposes
+const proofOfWork = (difficulty) => {
+  let nonce = 0;
+  let hash  = '';
+  while (hash.substring(0, difficulty) != Array(difficulty + 1).join('0')) {
+    nonce++;
+    hash = calculateHash(nonce.toString());
   }
 }
 
@@ -38,9 +39,11 @@ blockchain.push(newBlock('fourth block'));
 // =============================================
 // TESTING
 // =============================================
-const bc2 = blockchain[2];
-bc2.hash; //?
-bc2.transaction  = 'hack';
-const rehash = calculateHash(bc2.timestamp + bc2.prevHash + bc2.nonce + bc2.transaction);
+
+// HACK BY CHANGING A TRANSACTION VALUE
+const bc3 = blockchain[3];
+// comment or uncomment below line to test
+// bc3.transaction  = 'hack';
+const rehash = calculateHash(bc3.timestamp + bc3.prevHash + bc3.transaction);
 // false if hacked, true if not
-(bc2.hash === rehash) ? true : false; //?
+(bc3.hash === rehash) ? console.log('Clean!') : console.log('HACKED!');
