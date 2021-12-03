@@ -1,7 +1,12 @@
 const { Blockchain } = require('./blockchain');
 
-const powDifficulty = 1
-const blockchain    = new Blockchain(powDifficulty);
+const simplechain = new Blockchain;
 
-blockchain.chain; //?
-blockchain.addBlock('second block');
+simplechain.chain; //?
+
+// simplechain.addBlock('second block');
+
+for (let i = 0; i < simplechain.chain.length; i++) {
+  const block = simplechain[i];
+  console.log(block);
+}
