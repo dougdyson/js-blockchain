@@ -27,9 +27,8 @@ class Blockchain {
     const timestamp    = Date.now();
     const prevHash     = '';
     const transaction  = 'genesis block';
-    const hash         = calculateHash(timestamp + '' + transaction);
-    const genesisBlock = {timestamp, prevHash, hash, transaction}
-    return this.chain.push(genesisBlock);
+    const hash         = calculateHash(timestamp + transaction);
+    return this.chain.push({timestamp, prevHash, hash, transaction});
   }
 
   addBlock(transaction){
@@ -37,8 +36,7 @@ class Blockchain {
     const timestamp = Date.now();
     const prevHash  = this.chain[this.chain.length - 1].hash;
     const hash      = calculateHash(timestamp + prevHash + transaction);
-    const newBlock  = {timestamp, prevHash, hash, transaction}
-    return this.chain.push(newBlock);
+    return this.chain.push({timestamp, prevHash, hash, transaction});
   }
 
 }
