@@ -5,9 +5,9 @@ const calculateHash = (data) => createHmac('sha256', 'secret').update(data).dige
 // Proof-of-Work (PoW)
 let difficulty = 1;
 
-const newBlockchain = (difficulty) => {
+const newBlockchain = (d) => {
   // set PoW difficulty
-  difficulty = difficulty;
+  difficulty = d;
   // create genesis block 
   const prevHash    = '';
   const transaction = 'genesis block';
