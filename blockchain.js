@@ -2,7 +2,7 @@ const { createHmac } = require('crypto');
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
-// for Proof-of-Work (PoW)
+// Proof-of-Work (PoW)
 let difficulty = 1;
 
 const newBlockchain = (difficulty) => {
@@ -11,11 +11,11 @@ const newBlockchain = (difficulty) => {
   // create genesis block 
   const prevHash    = '';
   const transaction = 'genesis block';
-  const block       = addBlock(transaction, prevHash);
+  const block       = newBlock(transaction, prevHash);
   return [block];
 }
 
-const addBlock = (transaction, prevHash) => {
+const newBlock = (transaction, prevHash) => {
   proofOfWork(difficulty); 
   const timestamp = Date.now();
   const hash      = calculateHash(timestamp + prevHash + transaction);
@@ -36,4 +36,4 @@ const proofOfWork = (difficulty) => {
   }
 }
 
-module.exports = { newBlockchain, addBlock };
+module.exports = { newBlockchain, newBlock };
