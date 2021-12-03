@@ -6,7 +6,6 @@ simplechain.chain; //?
 
 simplechain.addBlock('second block');
 
-for (let i = 0; i < simplechain.chain.length; i++) {
-  const block = simplechain.chain[i];
+for (const block of simplechain.chain) {
   console.log(block);
 }
