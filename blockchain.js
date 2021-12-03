@@ -1,5 +1,7 @@
 const { createHmac } = require('crypto');
 
+const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
+
 class Block {
   constructor(transaction, prevHash) {
     this.timestamp = Date.now();
@@ -24,7 +26,7 @@ const proofOfWork = (difficulty) => {
 class Blockchain {
   
   constructor(powDifficulty) {
-    this.chain = [newBlock('genesis block')];
+    this.chain = [];
     this.powDifficulty = powDifficulty;
   }
 
@@ -32,14 +34,10 @@ class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
-  calculateHash(data){
-    return createHmac('sha256', 'secret').update(data).digest('hex');
-  }
-
   addGenesisBlock(){
     const timestamp   = Date.now();
     const transaction = 'genesis block';
-    const hash        = calculateHash(timestamp + '' + transaction);
+    const hash        = calculateHash(this.timestamp + '' + transaction);
     this.chain.push(timestamp, '', hash, transaction);
   }
 
