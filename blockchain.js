@@ -1,11 +1,11 @@
 const { createHmac } = require('crypto');
 
 const blockchain = [];
-const difficulty = 1; // for Proof-of-Work
+let difficulty = 1; // for Proof-of-Work
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
-const newBlock = (transaction) => {
+const addBlock = (transaction) => {
   proofOfWork(difficulty); 
   const timestamp = Date.now();
   // need to account for genesis block, which does not have a prevHash to reference
@@ -28,13 +28,25 @@ const proofOfWork = (difficulty) => {
   }
 }
 
-// create genesis block 
-blockchain.push(newBlock('genesis block'));
+const createBlockchain = (d) => {
+  const blockchain = [];
+  // set PoW difficulty
+  difficulty = d;
+  // create genesis block 
+  const timestamp   = Date.now();
+  const prevHash    = '';
+  const transaction = 'genesis block';
+  const hash        = calculateHash(timestamp + prevHash + transaction);
+  const block       = {timestamp, prevHash, hash, transaction};
+  blockchain.push(block);
+  return blockchain;
+}
+
 
 // create some more blocks
-blockchain.push(newBlock('second block'));
-blockchain.push(newBlock('third block'));
-blockchain.push(newBlock('fourth block'));
+blockchain.push(addBlock('second block'));
+blockchain.push(addBlock('third block'));
+blockchain.push(addBlock('fourth block'));
 
 
 // =============================================
