@@ -3,24 +3,43 @@ const { createHmac } = require('crypto');
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
 // Proof-of-Work (PoW)
-let difficulty = 1;
+class Blockchain {
+  
+  constructor(powDifficulty) {
+    this.chain = [newBlock('genesis block')];
+    this.powDifficulty = powDifficulty;
+  }
 
-const newBlockchain = (d) => {
-  // set PoW difficulty
-  difficulty = d;
-  // create genesis block 
-  const prevHash    = '';
-  const transaction = 'genesis block';
-  const block       = newBlock(transaction, prevHash);
-  return [block];
+  getLastBlock(){
+    return this.chain[this.chain.length - 1];
+  }
+
+  calculateHash(data){
+    return createHmac('sha256', 'secret').update(data).digest('hex');
+  }
+
+  addGenesisBlock(){
+    const timestamp   = Date.now();
+    const transaction = 'genesis block';
+    const hash        = calculateHash(timestamp + '' + transaction);
+    this.chain.push(timestamp, '', hash, transaction);
+  }
+
+  addBlock(transaction){
+    proofOfWork(this.powDifficulty);
+    const prevHash = this.chain.prevHash;
+    const newBlock = new Block(transaction, prevHash);
+    this.chain.push(newBlock);
+  }
+
 }
 
-const newBlock = (transaction, prevHash) => {
-  proofOfWork(difficulty); 
-  const timestamp = Date.now();
-  const hash      = calculateHash(timestamp + prevHash + transaction);
-  const block     = {timestamp, prevHash, hash, transaction};
-  return block;
+class Block {
+  constructor(transaction, prevHash) {
+    this.timestamp = Date.now();
+    const hash     = calculateHash(timestamp + prevHash + transaction);
+    return {timestamp, prevHash, hash, transaction};
+  }
 }
 
 // Proof-of-Work (PoW)
@@ -36,4 +55,4 @@ const proofOfWork = (difficulty) => {
   }
 }
 
-module.exports = { newBlockchain, newBlock };
+module.exports = { Blockchain, Block };
