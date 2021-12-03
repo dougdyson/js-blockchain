@@ -16,8 +16,8 @@ const newBlock = (transaction) => {
 }
 
 // Proof-of-Work
-// This is not a real PoW, just a fancy loop using hashing for illustrative purposes
-// Was first rehashing block while incrementing its nonce but it was SO SLOW!
+// This is not a real PoW, just a loop using hashing for illustrative purposes
+// Was first rehashing block while incrementing its nonce but it was SO SLOW!!
 // (p.s. PoW is essentially a transaction throttle)
 const proofOfWork = (difficulty) => {
   let nonce = 0;
