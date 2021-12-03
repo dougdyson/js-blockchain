@@ -10,9 +10,9 @@ class Blockchain {
     this.addGenesisBlock();
   }
 
-  getLastHash(){
-    console.log(this.chain[this.chain.length - 1].prevHash);
-    return this.chain[this.chain.length - 1].prevHash;
+  getLastBlock(){
+    console.log(this.chain[this.chain.length - 1]);
+    return ;
   }
 
   addGenesisBlock(){
@@ -27,7 +27,7 @@ class Blockchain {
   addBlock(transaction){
     proofOfWork();
     const timestamp = Date.now();
-    const prevHash  = this.chain[this.chain.length - 1].prevHash;
+    const prevHash  = this.chain[this.chain.length - 1].hash;
     const hash      = calculateHash(timestamp + prevHash + transaction);
     const newBlock  = {timestamp, prevHash, hash, transaction}
     return this.chain.push(newBlock);
