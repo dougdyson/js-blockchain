@@ -1,9 +1,14 @@
-const newBlockchain = require('./blockchain');
-const addBlock      = require('./blockchain');
+const { newBlockchain, addBlock } = require('./blockchain');
 
-const bc = newBlockchain(1); //?
+const chain = newBlockchain(1);
 
-bc.push(addBlock('second block', bc));
+const newBlock = (transaction) => {
+  const lastHash = chain[chain.length - 1].hash;
+  chain.push(addBlock(transaction, lastHash));
+};
 
-bc[1]; //?
+newBlock('second block');
 
+for (const block of chain) {
+  console.log(block.transaction);
+};
