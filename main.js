@@ -1,9 +1,5 @@
 const { Blockchain, Block } = require('./blockchain');
 
-const chain = newBlockchain(1);
+const chain = new Blockchain;
 
 
-
-for (const block of chain) {
-  console.log(block);
-};
