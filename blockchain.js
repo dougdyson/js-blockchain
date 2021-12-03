@@ -3,15 +3,6 @@ const { get } = require('https');
 
 const calculateHash = (data) => createHmac('sha256', 'secret').update(data).digest('hex');
 
-class Block {
-  constructor(transaction, prevHash) {
-    this.timestamp   = Date.now();
-    this.prevHash    = prevHash;
-    this.transaction = transaction;
-    this.hash        = calculateHash(timestamp + prevHash + transaction);
-  }
-}
-
 class Blockchain {
   
   constructor() {
@@ -25,18 +16,20 @@ class Blockchain {
   }
 
   addGenesisBlock(){
-    const timestamp   = Date.now();
-    const prevHash    = '';
-    const transaction = 'genesis block';
-    const hash        = calculateHash(timestamp + '' + transaction);
+    const timestamp    = Date.now();
+    const prevHash     = '';
+    const transaction  = 'genesis block';
+    const hash         = calculateHash(timestamp + '' + transaction);
     const genesisBlock = {timestamp, prevHash, hash, transaction}
     return this.chain.push(genesisBlock);
   }
 
   addBlock(transaction){
     proofOfWork();
-    const prevHash  = this.getLastHash();
-    const newBlock  = new Block(transaction, prevHash);
+    const timestamp = Date.now();
+    const prevHash  = this.chain[this.chain.length - 1].prevHash;
+    const hash      = calculateHash(timestamp + prevHash + transaction);
+    const newBlock  = {timestamp, prevHash, hash, transaction}
     return this.chain.push(newBlock);
   }
 
@@ -56,4 +49,4 @@ const proofOfWork = () => {
   }
 }
 
-module.exports = { Blockchain, Block };
+module.exports = { Blockchain };
