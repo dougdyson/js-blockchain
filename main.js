@@ -1,5 +1,7 @@
-const { Blockchain, Block } = require('./blockchain');
+const { Blockchain } = require('./blockchain');
 
-const chain = new Blockchain;
+const powDifficulty = 1
+const blockchain    = new Blockchain(powDifficulty);
 
-
+blockchain.chain; //?
+blockchain.addBlock('second block');

@@ -28,6 +28,7 @@ class Blockchain {
   constructor(powDifficulty) {
     this.chain = [];
     this.powDifficulty = powDifficulty;
+    this.addGenesisBlock();
   }
 
   getLastBlock(){
@@ -38,14 +39,15 @@ class Blockchain {
     const timestamp   = Date.now();
     const transaction = 'genesis block';
     const hash        = calculateHash(this.timestamp + '' + transaction);
-    this.chain.push(timestamp, '', hash, transaction);
+    console.log('genesis!');
+    return this.chain.push(timestamp, '', hash, transaction);
   }
 
   addBlock(transaction){
     proofOfWork(this.powDifficulty);
-    const prevHash = this.chain.prevHash;
-    const newBlock = new Block(transaction, prevHash);
-    this.chain.push(newBlock);
+    const prevHash  = this.chain.prevHash;
+    const newBlock  = new Block(transaction, prevHash);
+    return this.chain.push(newBlock);
   }
 
 }
