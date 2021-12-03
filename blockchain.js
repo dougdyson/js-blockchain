@@ -28,7 +28,7 @@ const proofOfWork = (difficulty) => {
   }
 }
 
-const createBlockchain = (d) => {
+const newBlockchain = (d) => {
   const blockchain = [];
   // set PoW difficulty
   difficulty = d;
@@ -41,23 +41,3 @@ const createBlockchain = (d) => {
   blockchain.push(block);
   return blockchain;
 }
-
-
-// create some more blocks
-blockchain.push(addBlock('second block'));
-blockchain.push(addBlock('third block'));
-blockchain.push(addBlock('fourth block'));
-
-
-// =============================================
-// TESTING
-// =============================================
-
-// HACK BY CHANGING A TRANSACTION VALUE
-// ====================================
-const bc3 = blockchain[3];
-// comment or uncomment below line to test
-// bc3.transaction  = 'hack';
-const rehash = calculateHash(bc3.timestamp + bc3.prevHash + bc3.transaction);
-// false if hacked, true if not
-(bc3.hash === rehash) ? console.log('Clean!') : console.log('HACKED!');

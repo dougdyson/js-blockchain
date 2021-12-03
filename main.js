@@ -1,1 +1,2 @@
-const { newBlock, }
+const { newBlockchain, newBlock, } = require('./blockchain');
+
