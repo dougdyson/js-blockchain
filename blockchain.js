@@ -41,3 +41,5 @@ const newBlockchain = (d) => {
   blockchain.push(block);
   return blockchain;
 }
+
+module.exports = newBlockchain, addBlock;
