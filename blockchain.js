@@ -12,7 +12,7 @@ class Blockchain {
     const prevHash     = '';
     const toAddress    = 'genesis block';
     const fromAddress  = '';
-    const amount       = 0;
+    const amount       = 100;
     const hash         = this.calculateHash(timestamp + toAddress + amount);
     return {timestamp, prevHash, hash, toAddress, fromAddress, amount};
   }
@@ -40,7 +40,11 @@ class Blockchain {
   }
 
   addTransaction(toAddress, fromAddress, amount){
-    // need to add required address balance >= amount
+    // need to add check for fromAddress balance >= amount
+    console.log( this.getAddressBalance(fromAddress));
+    if (this.getAddressBalance(fromAddress) < amount) {
+      return false;
+    }
     this.proofOfWork();
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
@@ -51,8 +55,8 @@ class Blockchain {
   getAddressBalance(address){ 
     let balance = 0;
     for (const block of this.chain) {
-      if (block.toAddress === address) balance -= block.amount;
-      if (block.fromAddress === address) balance += block.amount;
+      if (block.toAddress === address) balance += block.amount;
+      if (block.fromAddress === address) balance -= block.amount;
     }
     return balance;
   }
