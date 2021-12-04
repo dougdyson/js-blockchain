@@ -44,4 +44,12 @@ class Blockchain {
 
 }
 
-module.exports = { Blockchain };
+class Transaction {
+  constructor(buyer, seller, amount) {
+    this.buyer  = buyer;
+    this.seller = seller;
+    this.amount = amount
+  }
+}
+
+module.exports = { Blockchain, Transaction };
