@@ -18,9 +18,11 @@ class Blockchain {
   addGenesisBlock(){
     const timestamp    = Date.now();
     const prevHash     = '';
-    const transaction  = 'genesis block';
-    const hash         = this.calculateHash(timestamp + transaction);
-    return {timestamp, prevHash, hash, transaction};
+    const toAddress    = 'genesis block';
+    const fromAddress  = '';
+    const amount       = 0;
+    const hash         = this.calculateHash(timestamp + toAddress + amount);
+    return {timestamp, prevHash, hash, toAddress, fromAddress, amount};
   }
   
   // for refactor to calculate hash from block properties
@@ -37,22 +39,17 @@ class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
-  addBlock(transaction){
+  addBlock(Transaction){
     this.proofOfWork();
-    const timestamp = Date.now();
-    const prevHash  = this.getLastBlock().hash;
-    const hash      = this.calculateHash(timestamp + prevHash + transaction);
-    return this.chain.push({timestamp, prevHash, hash, transaction});
+    const timestamp   = Date.now();
+    const prevHash    = this.getLastBlock().hash;
+    const toAddress   = Transaction.toAddress;
+    const fromAddress = Transaction.fromAddress;
+    const amount      = Transaction.amount;
+    const hash        = this.calculateHash(timestamp + prevHash + Transaction);
+    return this.chain.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
   }
   
 }
 
-class Transaction {
-  constructor(buyer, seller, amount) {
-    this.buyer  = buyer;
-    this.seller = seller;
-    this.amount = amount;
-  }
-}
-
-module.exports = { Blockchain, Transaction };
+module.exports = { Blockchain };
