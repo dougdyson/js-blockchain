@@ -9,6 +9,4 @@ const tx2 = new Transaction('Alice', 'Bob', 150);
 simplechain.addTransaction(tx1);
 simplechain.addTransaction(tx2);
 
-const bobBalance = simplechain.getAddressBalance('Bob');
-
-console.log(bobBalance);
+console.log(simplechain.getAddressBalance('Bob'));  //?

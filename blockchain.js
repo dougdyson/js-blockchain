@@ -55,8 +55,8 @@ class Blockchain {
     let balance = 0;
 
     for (const block of this.chain) {
-      if (address === block.toAddress) balance += block.amount;
-      if (address === block.fromAddress) balance -= block.amount;
+      if (block.toAddress === address) balance -= block.amount;
+      if (block.fromAddress === address) balance += block.amount;
     }
 
     return balance;
