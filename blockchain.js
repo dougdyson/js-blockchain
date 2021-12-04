@@ -21,7 +21,7 @@ class Blockchain {
   
   // for refactor to calculate hash from block properties
   proofOfWork(){
-    const difficulty = 1
+    const difficulty = 0 // increment integer to throttle
     let nonce = 0;
     let hash  = '';
     while (hash.substring(0, difficulty) != Array(difficulty + 1).join('0')) {
@@ -29,12 +29,16 @@ class Blockchain {
       hash = this.calculateHash(nonce.toString());
     }
   }
+
+  getLastBlock(){
+    return this.chain[this.chain.length - 1];
+  }
   
   addBlock(transaction){
     this.proofOfWork();
     const timestamp = Date.now();
-    const prevHash  = this.chain[this.chain.length - 1].hash;
-    const hash      = calculateHash(timestamp + prevHash + transaction);
+    const prevHash  = this.getLastBlock().hash;
+    const hash      = this.calculateHash(timestamp + prevHash + transaction);
     return this.chain.push({timestamp, prevHash, hash, transaction});
   }
 
