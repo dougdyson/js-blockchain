@@ -1,10 +1,6 @@
-class Transaction {
-  constructor(toAddress, fromAddress, amount){
-    this.toAddress  = toAddress;
-    this.fromAddress = fromAddress;
-    this.amount = amount;
-    this.timestamp = Date.now();
-  }
+const formatTransaction = (toAddress, fromAddress, amount) => {
+  const timestamp = Date.now()
+  return {toAddress, fromAddress, amount, timestamp}
 }
 
-module.exports = { Transaction };
+module.exports = { formatTransaction };

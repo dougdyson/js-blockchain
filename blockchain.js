@@ -39,14 +39,11 @@ class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
-  addTransaction(Transaction){
+  addTransaction(toAddress, fromAddress, amount){
     this.proofOfWork();
-    const timestamp   = Transaction.timestamp;
+    const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
-    const toAddress   = Transaction.toAddress;
-    const fromAddress = Transaction.fromAddress;
-    const amount      = Transaction.amount;
-    const hash        = this.calculateHash(timestamp + prevHash + Transaction);
+    const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
     return this.chain.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
   }
 

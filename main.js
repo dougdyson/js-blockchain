@@ -1,12 +1,12 @@
 const { Blockchain } = require('./blockchain');
-const { Transaction } = require('./transaction');
+
 
 const simplechain = new Blockchain;
 
-const tx1 = new Transaction('Bob', 'Alice', 100);
-simplechain.addTransaction(tx1);
+simplechain.addTransaction('Bob', 'Alice', 100);
 
-const tx2 = new Transaction('Alice', 'Bob', 150);
-simplechain.addTransaction(tx2);
+simplechain.addTransaction('Alice', 'Bob', 150);
+
+console.log(simplechain);
 
 console.log(simplechain.getAddressBalance('Bob'));  //?
