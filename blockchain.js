@@ -50,18 +50,14 @@ class Blockchain {
     return this.chain.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
   }
 
-  getAddressBalance(address){
-    
+  getAddressBalance(address){ 
     let balance = 0;
-
     for (const block of this.chain) {
       if (block.toAddress === address) balance -= block.amount;
       if (block.fromAddress === address) balance += block.amount;
     }
-
     return balance;
   }
-  
   
 }
 
