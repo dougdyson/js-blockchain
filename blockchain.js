@@ -40,6 +40,7 @@ class Blockchain {
   }
 
   addTransaction(toAddress, fromAddress, amount){
+    // need to add required address balance >= amount
     this.proofOfWork();
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
