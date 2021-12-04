@@ -4,6 +4,7 @@ class Blockchain {
   
   constructor() {
     this.chain = [];
+    this.powDifficulty = 0
     this.addGenesisBlock();
   }
   
@@ -21,13 +22,16 @@ class Blockchain {
   
   // for refactor to calculate hash from block properties
   proofOfWork(){
-    const difficulty = 0 // increment integer to throttle
     let nonce = 0;
     let hash  = '';
-    while (hash.substring(0, difficulty) != Array(difficulty + 1).join('0')) {
+    while (hash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
       hash = this.calculateHash(nonce.toString());
     }
+  }
+
+  setPoWDifficulty(difficulty){
+    this.powDifficulty = difficulty;
   }
 
   getLastBlock(){

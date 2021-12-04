@@ -1,13 +1,10 @@
 const { Blockchain } = require('./blockchain');
 
-const simplechain = new Blockchain(1);
+const simplechain = new Blockchain;
+
+simplechain.setPoWDifficulty(6);
 
 simplechain.addBlock('second block');
-simplechain.addBlock('third block');
 
-for (const block of simplechain.chain) {
-  console.log(`for => block.transaction: ${block.transaction}`);
-}
+console.log(simplechain);
 
-const lastBlock = simplechain.getLastBlock()
-console.log(`getLastBlock => lastBlock.transaction: ${lastBlock.transaction}`);
