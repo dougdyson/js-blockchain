@@ -3,9 +3,12 @@ const { createHmac } = require('crypto');
 class Blockchain {
   
   constructor() {
-    this.chain = [];
-    this.powDifficulty = 0
-    this.addGenesisBlock();
+    this.chain = [this.addGenesisBlock()];
+    this.powDifficulty = 0 // throttle speed
+  }
+  
+  setPoWDifficulty(difficulty){
+    this.powDifficulty = difficulty;
   }
   
   calculateHash(data){
@@ -17,7 +20,7 @@ class Blockchain {
     const prevHash     = '';
     const transaction  = 'genesis block';
     const hash         = this.calculateHash(timestamp + transaction);
-    return this.chain.push({timestamp, prevHash, hash, transaction});
+    return {timestamp, prevHash, hash, transaction};
   }
   
   // for refactor to calculate hash from block properties
@@ -30,14 +33,6 @@ class Blockchain {
     }
   }
 
-  setPoWDifficulty(difficulty){
-    this.powDifficulty = difficulty;
-  }
-
-  getLastBlock(){
-    return this.chain[this.chain.length - 1];
-  }
-  
   addBlock(transaction){
     this.proofOfWork();
     const timestamp = Date.now();
@@ -45,14 +40,18 @@ class Blockchain {
     const hash      = this.calculateHash(timestamp + prevHash + transaction);
     return this.chain.push({timestamp, prevHash, hash, transaction});
   }
-
+  
+  getLastBlock(){
+    return this.chain[this.chain.length - 1];
+  }
+  
 }
 
 class Transaction {
   constructor(buyer, seller, amount) {
     this.buyer  = buyer;
     this.seller = seller;
-    this.amount = amount
+    this.amount = amount;
   }
 }
 
