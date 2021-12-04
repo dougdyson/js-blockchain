@@ -10,4 +10,4 @@ simplechain.addBlock('third block');
 console.log(simplechain);
 
 const lastBlock = simplechain.getLastBlock();
-console.log(`lastBlock: ` + lastBlock.transaction);
+console.log(lastBlock);

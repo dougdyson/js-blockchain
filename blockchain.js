@@ -32,6 +32,10 @@ class Blockchain {
       hash = this.calculateHash(nonce.toString());
     }
   }
+  
+  getLastBlock(){
+    return this.chain[this.chain.length - 1];
+  }
 
   addBlock(transaction){
     this.proofOfWork();
@@ -39,10 +43,6 @@ class Blockchain {
     const prevHash  = this.getLastBlock().hash;
     const hash      = this.calculateHash(timestamp + prevHash + transaction);
     return this.chain.push({timestamp, prevHash, hash, transaction});
-  }
-  
-  getLastBlock(){
-    return this.chain[this.chain.length - 1];
   }
   
 }
