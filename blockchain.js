@@ -39,7 +39,7 @@ class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
-  addBlock(Transaction){
+  addTransaction(Transaction){
     this.proofOfWork();
     const timestamp   = Transaction.timestamp;
     const prevHash    = this.getLastBlock().hash;
@@ -49,6 +49,19 @@ class Blockchain {
     const hash        = this.calculateHash(timestamp + prevHash + Transaction);
     return this.chain.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
   }
+
+  getAddressBalance(address){
+    
+    let balance = 0;
+
+    for (const block of this.chain) {
+      if (address === block.toAddress) balance += block.amount;
+      if (address === block.fromAddress) balance -= block.amount;
+    }
+
+    return balance;
+  }
+  
   
 }
 
