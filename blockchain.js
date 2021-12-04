@@ -7,14 +7,6 @@ class Blockchain {
     this.powDifficulty = 0 // throttle speed
   }
   
-  setPoWDifficulty(difficulty){
-    this.powDifficulty = difficulty;
-  }
-  
-  calculateHash(data){
-    return createHmac('sha256', 'secret').update(data).digest('hex');
-  }
-  
   addGenesisBlock(){
     const timestamp    = Date.now();
     const prevHash     = '';
@@ -23,6 +15,14 @@ class Blockchain {
     const amount       = 0;
     const hash         = this.calculateHash(timestamp + toAddress + amount);
     return {timestamp, prevHash, hash, toAddress, fromAddress, amount};
+  }
+  
+  calculateHash(data){
+    return createHmac('sha256', 'secret').update(data).digest('hex');
+  }
+  
+  setPoWDifficulty(difficulty){
+    this.powDifficulty = difficulty;
   }
   
   // for refactor to calculate hash from block properties
@@ -41,7 +41,7 @@ class Blockchain {
 
   addBlock(Transaction){
     this.proofOfWork();
-    const timestamp   = Date.now();
+    const timestamp   = Transaction.timestamp;
     const prevHash    = this.getLastBlock().hash;
     const toAddress   = Transaction.toAddress;
     const fromAddress = Transaction.fromAddress;

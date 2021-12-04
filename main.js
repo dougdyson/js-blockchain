@@ -1,5 +1,5 @@
 const { Blockchain } = require('./blockchain');
-const { Transaction } = require('./transaction')
+const { Transaction } = require('./transaction');
 
 const simplechain = new Blockchain;
 
