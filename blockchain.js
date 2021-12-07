@@ -40,12 +40,12 @@ class Blockchain {
     }
     const minedTransactions = this.pendingTransactions;
     this.pendingTransactions = [];
-    this.pendingTransactions.push(this.addPendingTransaction(toAddress, '', this.miningReward));
+    const pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
+    this.pendingTransactions.push(pendingTransaction);
     this.chain = this.chain.concat(minedTransactions);
     return this.chain;
   }
   
-
   addPendingTransaction(toAddress, fromAddress, amount){
     // need to add check for fromAddress balance >= amount
     // console.log( this.getAddressBalance(fromAddress));
