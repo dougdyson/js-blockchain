@@ -4,7 +4,7 @@ class Blockchain {
   
   constructor() {
     this.chain = [this.addGenesisBlock()];
-    this.powDifficulty = 0 // throttle speed
+    this.powDifficulty = 0; // throttle speed
   }
   
   addGenesisBlock(){
@@ -26,12 +26,12 @@ class Blockchain {
   }
   
   // for refactor to calculate hash from block properties
-  proofOfWork(){
-    let nonce = 0;
-    let hash  = '';
+  mineBlock(){
+    let hash = this.getLastBlock().hash;
+    let nonce = this.getLastBlock().nonce;
     while (hash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
-      hash = this.calculateHash(nonce.toString());
+      hash = this.calculateHash(hash + nonce);
     }
   }
   
@@ -41,11 +41,11 @@ class Blockchain {
 
   addTransaction(toAddress, fromAddress, amount){
     // need to add check for fromAddress balance >= amount
-    console.log( this.getAddressBalance(fromAddress));
-    if (this.getAddressBalance(fromAddress) < amount) {
-      return false;
-    }
-    this.proofOfWork();
+    // console.log( this.getAddressBalance(fromAddress));
+    // if (this.getAddressBalance(fromAddress) < amount) {
+    //   return false;
+    // }
+    this.mineBlock();
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
