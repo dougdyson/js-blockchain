@@ -4,8 +4,9 @@ class Blockchain {
   
   constructor() {
     this.chain = [this.addGenesisBlock()];
-    this.powDifficulty  = 0; // throttle speed
-    this.pendingTransactions = '[]';
+    this.powDifficulty = 0; // throttle speed
+    this.pendingTransactions = [];
+    this.miningReward = 100;
   }
   
   addGenesisBlock(){
@@ -13,7 +14,7 @@ class Blockchain {
     const prevHash     = '';
     const toAddress    = 'genesis block';
     const fromAddress  = '';
-    const amount       = 100;
+    const amount       = 0;
     const hash         = this.calculateHash(timestamp + toAddress + amount);
     return {timestamp, prevHash, hash, toAddress, fromAddress, amount};
   }
@@ -26,13 +27,15 @@ class Blockchain {
     this.powDifficulty = difficulty;
   }
   
-  mineBlock(){
+  minePendingTransactions(toAddress){
     let hash = this.getLastBlock().hash;
     let nonce = this.getLastBlock().nonce;
     while (hash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
       hash = this.calculateHash(hash + nonce);
     }
+    this.chain.concat(this.pendingTransactions);
+    this.addTransaction(toAddress, '', this.miningReward)
   }
   
   getLastBlock(){
@@ -45,11 +48,11 @@ class Blockchain {
     // if (this.getAddressBalance(fromAddress) < amount) {
     //   return false;
     // }
-    this.mineBlock();
+    // this.mineBlock();
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
-    return this.chain.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
+    return this.pendingTransactions.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
   }
 
   getAddressBalance(address){ 
