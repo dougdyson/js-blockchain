@@ -4,7 +4,8 @@ class Blockchain {
   
   constructor() {
     this.chain = [this.addGenesisBlock()];
-    this.powDifficulty = 0; // throttle speed
+    this.powDifficulty  = 0; // throttle speed
+    this.pendingTransactions = '[]';
   }
   
   addGenesisBlock(){
