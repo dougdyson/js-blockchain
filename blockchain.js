@@ -38,11 +38,9 @@ class Blockchain {
       nonce++;
       hash = this.calculateHash(hash + nonce);
     }
-    const minedTransactions = this.pendingTransactions;
+    this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
-    const pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
-    this.pendingTransactions.push(pendingTransaction);
-    this.chain = this.chain.concat(minedTransactions);
+    this.pendingTransactions.push(this.addPendingTransaction(toAddress, '', this.miningReward));
     return this.chain;
   }
   
