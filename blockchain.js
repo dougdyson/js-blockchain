@@ -12,7 +12,7 @@ class Blockchain {
   addGenesisBlock(){
     const timestamp    = Date.now();
     const prevHash     = '';
-    const toAddress    = 'genesis block';
+    const toAddress    = 'genesis-block';
     const fromAddress  = '';
     const amount       = 0;
     const hash         = this.calculateHash(timestamp + toAddress + amount);
@@ -27,28 +27,34 @@ class Blockchain {
     this.powDifficulty = difficulty;
   }
   
+  getLastBlock(){
+    return this.chain[this.chain.length - 1];
+  }
+
   minePendingTransactions(toAddress){
+    const test = this.getLastBlock();
+    console.log('lastBlock:');
+    console.log(test);
     let hash = this.getLastBlock().hash;
+    console.log('mine hash:', hash);
     let nonce = this.getLastBlock().nonce;
     while (hash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
       hash = this.calculateHash(hash + nonce);
     }
-    this.chain.concat(this.pendingTransactions);
-    this.addTransaction(toAddress, '', this.miningReward)
+    console.log(`BLOCK MINED by ${toAddress} for ${this.miningReward}`);
+    const minedTransactions = this.pendingTransactions;
+    this.pendingTransactions = [this.addPendingTransaction(toAddress, '', this.miningReward)];
+    return this.chain.concat(minedTransactions);
   }
   
-  getLastBlock(){
-    return this.chain[this.chain.length - 1];
-  }
 
-  addTransaction(toAddress, fromAddress, amount){
+  addPendingTransaction(toAddress, fromAddress, amount){
     // need to add check for fromAddress balance >= amount
     // console.log( this.getAddressBalance(fromAddress));
     // if (this.getAddressBalance(fromAddress) < amount) {
     //   return false;
     // }
-    // this.mineBlock();
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
