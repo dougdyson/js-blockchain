@@ -1,11 +1,8 @@
 const { Blockchain } = require('./blockchain');
 
+const simplechain = new Blockchain;
 
-const simplechain = new Blockchain; //?
-
-simplechain.addPendingTransaction('alice', 'bob', 100);
-
-simplechain.pendingTransactions[0];//?
+simplechain.addPendingTransaction('alice', 'bob', 50);
 
 simplechain.minePendingTransactions('alice');//?
 
@@ -15,5 +12,5 @@ simplechain.minePendingTransactions('alice');//?
 
 console.log('alice balance:', simplechain.getAddressBalance('alice'));//?
 
-simplechain.pendingTransactions[0];//?
+console.log(simplechain);
 

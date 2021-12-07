@@ -5,8 +5,8 @@ class Blockchain {
   constructor() {
     this.chain = [this.addGenesisBlock()];
     this.powDifficulty = 0; // throttle speed
-    this.pendingTransactions = [];
     this.miningReward = 100;
+    this.pendingTransactions = [];
   }
   
   addGenesisBlock(){
@@ -32,20 +32,17 @@ class Blockchain {
   }
 
   minePendingTransactions(toAddress){
-    const test = this.getLastBlock();
-    console.log('lastBlock:');
-    console.log(test);
     let hash = this.getLastBlock().hash;
-    console.log('mine hash:', hash);
-    let nonce = this.getLastBlock().nonce;
+    let nonce = 0;
     while (hash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
       hash = this.calculateHash(hash + nonce);
     }
-    console.log(`BLOCK MINED by ${toAddress} for ${this.miningReward}`);
     const minedTransactions = this.pendingTransactions;
-    this.pendingTransactions = [this.addPendingTransaction(toAddress, '', this.miningReward)];
-    return this.chain.concat(minedTransactions);
+    this.pendingTransactions = [];
+    this.pendingTransactions.push(this.addPendingTransaction(toAddress, '', this.miningReward))
+    this.chain = this.chain.concat(minedTransactions);
+    return this.chain;
   }
   
 
