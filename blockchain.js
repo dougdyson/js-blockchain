@@ -25,7 +25,6 @@ class Blockchain {
     this.powDifficulty = difficulty;
   }
   
-  // for refactor to calculate hash from block properties
   mineBlock(){
     let hash = this.getLastBlock().hash;
     let nonce = this.getLastBlock().nonce;
