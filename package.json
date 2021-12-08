@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/HatHeadNinja/js-blockchain#readme",
   "dependencies": {
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "elliptic": "^6.5.4"
   },
   "devDependencies": {
     "jest": "^27.4.3"
