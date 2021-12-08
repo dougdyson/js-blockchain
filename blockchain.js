@@ -40,7 +40,8 @@ class Blockchain {
     }
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
-    this.pendingTransactions.push(this.addPendingTransaction(toAddress, '', this.miningReward));
+    const pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
+    this.pendingTransactions.push(pendingTransaction);
     return this.chain;
   }
   
@@ -57,12 +58,10 @@ class Blockchain {
   }
 
   getAddressBalance(address){ 
-    let balance = 0;
-    for (const block of this.chain) {
-      if (block.toAddress === address) balance =+ block.amount;
-      if (block.fromAddress === address) balance =- block.amount;
-    }
-    return balance;
+    return this.chain.reduce((a,v) => {
+      if (v.toAddress === address) a =+ v;
+      if (v.fromAddress === address) a =- v;
+    })
   }
   
 }
