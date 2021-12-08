@@ -8,7 +8,7 @@ const toAddress = toWallet.publicKey;
 
 const blockchain = new Blockchain; //?
 
-const transaction = fromWallet.newTransaction(toWallet.publicKey, 50);
+const transaction = fromWallet.newSignedTransaction(toWallet.publicKey, 50);
 
 blockchain.addPendingTransaction(transaction);
 

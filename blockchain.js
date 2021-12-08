@@ -46,7 +46,7 @@ class Blockchain {
     this.pendingTransactions = [];
     const fromAddress = '';
     const amount      = this.miningReward;
-    const signature   = null;
+    const signature   = '';
     const transaction = {toAddress, fromAddress, amount, signature}
     this.addPendingTransaction(transaction);
     return this.chain;

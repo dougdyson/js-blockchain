@@ -21,7 +21,7 @@ class Wallet {
 
   }
 
-  newTransaction(toAddress, amount){
+  newSignedTransaction(toAddress, amount){
     const fromAddress = this.publicKey;
     const signature = this.signTransaction(fromAddress);
     return {toAddress, fromAddress, amount, signature};
