@@ -12,10 +12,10 @@ class Blockchain {
   addGenesisBlock(){
     const timestamp    = Date.now();
     const prevHash     = '';
-    const toAddress    = 'genesis-block';
-    const fromAddress  = '';
+    const toAddress    = '';
+    const fromAddress  = 'genesis-block';
     const amount       = 0;
-    const hash         = this.calculateHash(timestamp + toAddress + amount);
+    const hash         = this.calculateHash(timestamp + fromAddress + amount);
     return {timestamp, prevHash, hash, toAddress, fromAddress, amount};
   }
   
@@ -44,19 +44,27 @@ class Blockchain {
     // add pending transactions to chain and reward mining address
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
-    this.addPendingTransaction(toAddress, '', this.miningReward);
+    const fromAddress = '';
+    const amount      = this.miningReward;
+    const signature   = '';
+    const transaction = {toAddress, fromAddress, amount, signature}
+    this.addPendingTransaction(transaction);
     return this.chain;
   }
   
-  addPendingTransaction(toAddress, fromAddress, amount){
+  addPendingTransaction(transaction){
     // need to add check for fromAddress balance >= amount
     // i.e. if (this.getAddressBalance(fromAddress) < amount) {
     //          return false;
     //      }
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
+    const toAddress   = transaction.toAddress;
+    const fromAddress = transaction.fromAddress;
+    const amount      = transaction.amount;
+    const signature   = transaction.signature;
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
-    this.pendingTransactions.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
+    this.pendingTransactions.push({timestamp, prevHash, hash, toAddress, fromAddress, amount, signature});
     return this.pendingTransactions;
   }
 
