@@ -1,14 +1,10 @@
 const EC = require('elliptic').ec;
 const { createHmac } = require('crypto');
 
-
 class Wallet {
-  constructor(){
+  constructor(privateKey){
     const ec = new EC('secp256k1');
-    this.name = 'for future use';
-    this.key  = ec.genKeyPair();
-    this.publicKey  = key.getPublic('hex');
-    this.privateKey = key.getPrivate('hex');
+    this.publicKey  = ec.keyFromPrivate(privateKey);
   }
 
   calculateHash(data){
