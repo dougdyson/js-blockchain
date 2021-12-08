@@ -52,20 +52,15 @@ class Blockchain {
     return this.chain;
   }
   
-  addPendingTransaction(transaction){
+  addPendingTransaction(tx){
     // need to add check for fromAddress balance >= amount
     // i.e. if (this.getAddressBalance(fromAddress) < amount) {
     //          return false;
     //      }
-    const timestamp   = Date.now();
-    const prevHash    = this.getLastBlock().hash;
-    const toAddress   = transaction.toAddress;
-    const fromAddress = transaction.fromAddress;
-    const amount      = transaction.amount;
-    const signature   = transaction.signature;
-    const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
-    const tx = {timestamp, prevHash, hash, toAddress, fromAddress, amount, signature};
-    this.pendingTransactions.push(tx);
+    tx.timestamp = Date.now();
+    tx.prevHash  = this.getLastBlock().hash;
+    tx.hash = this.calculateHash(tx.timestamp + tx.prevHash + tx.toAddress + tx.fromAddress + tx.amount);
+    this.pendingTransactions.push(tx)
     return this.pendingTransactions;
   }
 
