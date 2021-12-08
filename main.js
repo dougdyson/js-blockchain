@@ -8,7 +8,6 @@ simplechain.addPendingTransaction('alice', 'bob', 50);
 // 1st mine
 simplechain.minePendingTransactions('alice');//?
 console.log('alice balance:', simplechain.getAddressBalance('alice'));//?
-console.log(simplechain.pendingTransactions);
 
 // 2nd mine
 simplechain.minePendingTransactions('alice');//?

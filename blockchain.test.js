@@ -1,6 +1,8 @@
-import { createBlock } from "./blockchain";
+import { Blockchain } from "./blockchain";
 
-const genesisBlock = createBlock({description: 'genesis block'});
+const testchain = new Blockchain;
 
-genesisBlock.data //?
+const genesisBlock = testchain.addGenesisBlock();
+
+genesisBlock //?
 
