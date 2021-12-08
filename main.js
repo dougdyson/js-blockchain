@@ -1,16 +1,7 @@
+const { Wallet} = require('./wallet');
 const { Blockchain } = require('./blockchain');
 
+const wallet = new Wallet()
+
 const simplechain = new Blockchain;
-
-// 1 st tx
-simplechain.addPendingTransaction('alice', 'bob', 50);
-
-// 1st mine
-simplechain.minePendingTransactions('alice');//?
-console.log('alice balance:', simplechain.getAddressBalance('alice'));//?
-
-// 2nd mine
-simplechain.minePendingTransactions('alice');//?
-console.log('alice balance:', simplechain.getAddressBalance('alice'));//?
-console.log(simplechain);
 
