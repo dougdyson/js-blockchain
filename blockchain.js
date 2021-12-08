@@ -62,9 +62,10 @@ class Blockchain {
     const toAddress   = transaction.toAddress;
     const fromAddress = transaction.fromAddress;
     const amount      = transaction.amount;
-    const signature   = transaction.signature;
+    const signature   = (fromAddress != '') ? transaction.signature : '';
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
-    this.pendingTransactions.push({timestamp, prevHash, hash, toAddress, fromAddress, amount, signature});
+    const tx = {timestamp, prevHash, hash, toAddress, fromAddress, amount, signature};
+    this.pendingTransactions.push(tx);
     return this.pendingTransactions;
   }
 
