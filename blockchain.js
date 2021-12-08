@@ -2,10 +2,11 @@ const { createHmac } = require('crypto');
 
 class Blockchain {
   
-  constructor() {
-    this.chain = [this.addGenesisBlock()];
+  constructor(symbol, reward) {
+    this.symbol = symbol;
+    this.chain  = [this.addGenesisBlock()];
     this.powDifficulty = 0; // throttle speed
-    this.miningReward = 100;
+    this.miningReward  = reward;
     this.pendingTransactions = [];
   }
   
