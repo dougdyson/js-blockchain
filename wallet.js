@@ -4,7 +4,7 @@ const { createHmac } = require('crypto');
 class Wallet {
   constructor(privateKey){
     const ec = new EC('secp256k1');
-    this.publicKey  = ec.keyFromPrivate(privateKey);
+    this.publicKey  = ec.keyFromPrivate(privateKey).getPublic('hex');
   }
 
   calculateHash(data){
@@ -22,3 +22,5 @@ class Wallet {
     this.signature = sig.toDER('hex');
   }
 }
+
+  module.exports = { Wallet };
