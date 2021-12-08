@@ -32,12 +32,14 @@ class Blockchain {
   }
 
   minePendingTransactions(toAddress){
-    let hash = this.getLastBlock().hash;
+    // throttle via hash mining
+    let miningHash = this.getLastBlock().hash;
     let nonce = 0;
-    while (hash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
+    while (miningHash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
-      hash = this.calculateHash(hash + nonce);
+      miningHash = this.calculateHash(miningHash + nonce);
     }
+    // add pending transactions to chain and reward mining address
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
     const pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
@@ -58,10 +60,12 @@ class Blockchain {
   }
 
   getAddressBalance(address){ 
-    return this.chain.reduce((a,v) => {
-      if (v.toAddress === address) a =+ v;
-      if (v.fromAddress === address) a =- v;
-    })
+    let balance = 0;
+    for (const block of this.chain) {
+      if (block.toAddress === address) balance += block.amount;
+      if (block.fromAddress === address) balance -= block.amount;
+    }
+    return balance;
   }
   
 }
