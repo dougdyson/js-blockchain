@@ -44,21 +44,20 @@ class Blockchain {
     // add pending transactions to chain and reward mining address
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
-    let pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
-    this.pendingTransactions.push(pendingTransaction);
+    this.addPendingTransaction(toAddress, '', this.miningReward);
     return this.chain;
   }
   
   addPendingTransaction(toAddress, fromAddress, amount){
     // need to add check for fromAddress balance >= amount
-    // console.log( this.getAddressBalance(fromAddress));
-    // if (this.getAddressBalance(fromAddress) < amount) {
-    //   return false;
-    // }
+    // i.e. if (this.getAddressBalance(fromAddress) < amount) {
+    //          return false;
+    //      }
     const timestamp   = Date.now();
     const prevHash    = this.getLastBlock().hash;
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
-    return this.pendingTransactions.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
+    this.pendingTransactions.push({timestamp, prevHash, hash, toAddress, fromAddress, amount});
+    return this.pendingTransactions;
   }
 
   getAddressBalance(address){ 
