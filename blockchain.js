@@ -62,8 +62,7 @@ class Blockchain {
     const toAddress   = transaction.toAddress;
     const fromAddress = transaction.fromAddress;
     const amount      = transaction.amount;
-    // wallet transactions have signatures while mining reward transactions do not
-    const signature   = (fromAddress != '') ? transaction.signature : '';
+    const signature   = transaction.signature;
     const hash        = this.calculateHash(timestamp + prevHash + toAddress + fromAddress + amount);
     const tx = {timestamp, prevHash, hash, toAddress, fromAddress, amount, signature};
     this.pendingTransactions.push(tx);
