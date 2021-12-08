@@ -32,17 +32,19 @@ class Blockchain {
   }
 
   minePendingTransactions(toAddress){
-    // throttle via hash mining
+    
+    // throttle via hash calculations
     let miningHash = this.getLastBlock().hash;
     let nonce = 0;
     while (miningHash.substring(0, this.powDifficulty) != Array(this.powDifficulty + 1).join('0')) {
       nonce++;
       miningHash = this.calculateHash(miningHash + nonce);
     }
+    
     // add pending transactions to chain and reward mining address
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
-    const pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
+    let pendingTransaction = this.addPendingTransaction(toAddress, '', this.miningReward);
     this.pendingTransactions.push(pendingTransaction);
     return this.chain;
   }
