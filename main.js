@@ -8,15 +8,13 @@ const toAddress = toWallet.publicKey;
 
 const blockchain = new Blockchain; //?
 
-const tx1 = fromWallet.newTransaction(toAddress, 50);
+const transaction = fromWallet.newTransaction(toWallet.publicKey, 50);
 
-tx1 //?
-
-blockchain.addPendingTransaction(tx1);
+blockchain.addPendingTransaction(transaction);
 
 blockchain.minePendingTransactions(toAddress);
 
-blockchain.minePendingTransactions(toAddress); //?
+blockchain.minePendingTransactions(toAddress);
 
 blockchain.getAddressBalance(toAddress); //?
 
