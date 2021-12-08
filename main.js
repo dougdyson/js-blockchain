@@ -6,9 +6,9 @@ const toWallet   = new Wallet('e64c724907b31a43496df63d8634049c71129de932a80617d
 
 const toAddress = toWallet.publicKey;
 
-const blockchain = new Blockchain;
-
 const transaction = fromWallet.newTransaction(toWallet.publicKey, 50);
+
+const blockchain = new Blockchain;
 
 blockchain.addPendingTransaction(transaction);
 
