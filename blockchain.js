@@ -66,7 +66,7 @@ class Blockchain {
     if (!this.getAddressBalance(tx.fromAddress) > tx.amount) return false;
     
     // verify fromAddress transaction signature
-    const key = ec.keyFromPublic(tx.fromAddress, 'hex')
+    const key  = ec.keyFromPublic(tx.fromAddress, 'hex')
     const hash = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount);
     return key.verify(hash, tx.signature);
 
