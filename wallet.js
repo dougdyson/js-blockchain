@@ -1,6 +1,7 @@
+const { createHash } = require('crypto');
+
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
-const { createHmac } = require('crypto');
 
 class Wallet {
   constructor(privateKey){
@@ -8,24 +9,24 @@ class Wallet {
   }
 
   calculateHash(data){
-    return createHmac('sha256', this.publicKey).update(data).digest('hex');
+    return createHash('sha256').update(data).digest('hex');
   }
-
-  signTransaction(fromAddress){
-    if (this.publicKey !== fromAddress) {
-      throw new Error('Public key does not match wallet address!');
-    }
-
-    const txHash = this.calculateHash(fromAddress.toString());
-    return ec.sign(txHash, 'base64');
-
-  }
-
+  
   newTransaction(toAddress, amount){
+
     const fromAddress = this.publicKey;
-    const signature = this.signTransaction(fromAddress);
+    
+    const signatureHash = this.calculateHash(fromAddress);
+    console.log('W signatureHash:');
+    console.log(signatureHash);
+    
+    const signature = ec.sign(signatureHash, 'hex');
+    console.log('W signature:');
+    console.log(signature);
+    
     return {toAddress, fromAddress, amount, signature};
   }
+
 }
 
   module.exports = { Wallet };

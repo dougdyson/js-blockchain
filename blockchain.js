@@ -1,4 +1,7 @@
-const { createHmac } = require('crypto');
+const { createHash } = require('crypto');
+
+const EC = require('elliptic').ec;
+const ec = new EC('secp256k1');
 
 class Blockchain {
   
@@ -11,17 +14,17 @@ class Blockchain {
   }
   
   addGenesisBlock(){
-    const timestamp    = Date.now();
-    const prevHash     = '';
     const toAddress    = '';
     const fromAddress  = 'genesis-block';
     const amount       = 0;
+    const timestamp    = Date.now();
+    const prevHash     = '';
     const hash         = this.calculateHash(timestamp + fromAddress + amount);
-    return {timestamp, prevHash, hash, toAddress, fromAddress, amount};
+    return {toAddress, fromAddress, amount, timestamp, prevHash, hash};
   }
   
   calculateHash(data){
-    return createHmac('sha256', 'secret').update(data).digest('hex');
+    return createHash('sha256').update(data).digest('hex');
   }
   
   setPoWDifficulty(difficulty){
@@ -45,23 +48,45 @@ class Blockchain {
     // add pending transactions to chain and reward mining address
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
-    const fromAddress = '';
+    const fromAddress = 'reward';
     const amount      = this.miningReward;
-    const signature   = '';
+    const signature   = null;
     const transaction = {toAddress, fromAddress, amount, signature}
     this.addPendingTransaction(transaction);
     return this.chain;
   }
+
+  isValidTransaction(tx){
+    
+    // mining rewards come from null fromAddress
+    if (tx.fromAddress === 'reward') return true;
+    
+    // throw new Error('No signature in this transaction!');
+    if (!tx.signature || tx.signature.length === 0) return false;
+    
+    // verify signature
+    const signatureHash = this.calculateHash(tx.fromAddress);
+    const key = ec.keyFromPublic(tx.fromAddress, 'hex');
+    console.log('B signatureHash:');
+    console.log(signatureHash);
+    console.log('B key');
+    console.log(key);
+    console.log('B tx.signature:');
+    console.log(tx.signature);
+    if (key.verify(signatureHash, tx.signature)) return false;
+
+    return true;
+
+  }
   
   addPendingTransaction(tx){
-    // need to add check for fromAddress balance >= amount
-    // i.e. if (this.getAddressBalance(fromAddress) < amount) {
-    //          return false;
-    //      }
-    tx.timestamp = Date.now();
-    tx.prevHash  = this.getLastBlock().hash;
-    tx.hash = this.calculateHash(tx.timestamp + tx.prevHash + tx.toAddress + tx.fromAddress + tx.amount);
-    this.pendingTransactions.push(tx)
+
+    if (this.isValidTransaction(tx)) {
+      tx.timestamp = Date.now();
+      tx.prevHash  = this.getLastBlock().hash;
+      tx.hash = this.calculateHash(tx.timestamp + tx.prevHash + tx.toAddress + tx.fromAddress + tx.amount);
+      this.pendingTransactions.push(tx)
+    }
     return this.pendingTransactions;
   }
 
