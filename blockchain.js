@@ -60,13 +60,16 @@ class Blockchain {
     // mining rewards come from null fromAddress
     if (tx.fromAddress === 'reward') return true;
     
-    // throw new Error('No signature in this transaction!');
+    // has signature in this transaction
     if (!tx.signature || tx.signature.length === 0) return false;
+
+    // has enough fromAccount balance to cover transaction amount
+    if (this.getAddressBalance(tx.fromAddress) > tx.amount) return false;
     
-    // verify signature
+    // verify fromAddress transaction signature
     const key = ec.keyFromPublic(tx.fromAddress, 'hex')
-    const msgHash = this.calculateHash(tx.fromAddress);
-    return key.verify(msgHash, tx.signature);
+    const hash = this.calculateHash(tx.fromAddress);
+    return key.verify(hash, tx.signature);
 
   }
   
