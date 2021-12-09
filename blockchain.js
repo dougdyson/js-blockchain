@@ -36,7 +36,6 @@ class Blockchain {
   }
 
   minePendingTransactions(toAddress){
-    
     // throttle via hash calculations
     let miningHash = this.getLastBlock().hash;
     let nonce = 0;

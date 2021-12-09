@@ -12,7 +12,7 @@ const blockchain = new Blockchain('BTC', 100);
 blockchain.minePendingTransactions(minerWallet.publicKey);
 
 // transfer amount between wallets
-const transaction = minerWallet.newTransaction(toWallet.publicKey, 50);
+const transaction = minerWallet.signTransaction(toWallet.publicKey, 50);
 
 // make transfer transaction available for mining
 blockchain.addPendingTransaction(transaction);

@@ -13,7 +13,7 @@ class Wallet {
     return createHash('sha256').update(data).digest('hex');
   }
   
-  newTransaction(toAddress, amount){
+  signTransaction(toAddress, amount){
 
     const fromAddress = this.publicKey;   
     const signatureHash = this.calculateHash(fromAddress);
