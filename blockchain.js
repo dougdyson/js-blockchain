@@ -55,20 +55,19 @@ class Blockchain {
   }
 
   isValidTransaction(tx) {
-    // mining rewards come from null fromAddress
+    // mining reward fromAddress
     if (tx.fromAddress === 'reward') return true;
     
-    // transaction without signature
-    if (!tx.signature || tx.signature.length === 0) return false;
-
-    // NSF fromAccount balance
+    // check fromAccount balance
     if (!this.getAddressBalance(tx.fromAddress) >= tx.amount) return false;
+    
+    // check for transaction signature
+    if (!tx.signature || tx.signature.length === 0) return false;
     
     // verify fromAddress transaction signature
     const key  = ec.keyFromPublic(tx.fromAddress, 'hex')
     const hash = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount);
     return key.verify(hash, tx.signature);
-
   }
   
   addPendingTransaction(tx){
