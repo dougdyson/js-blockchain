@@ -59,10 +59,10 @@ class Blockchain {
     // mining rewards come from null fromAddress
     if (tx.fromAddress === 'reward') return true;
     
-    // transaction has a signature
+    // transaction without signature
     if (!tx.signature || tx.signature.length === 0) return false;
 
-    // fromAccount balance has enough to cover transaction amount
+    // NSF fromAccount balance
     if (!this.getAddressBalance(tx.fromAddress) > tx.amount) return false;
     
     // verify fromAddress transaction signature
