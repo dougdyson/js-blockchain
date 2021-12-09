@@ -57,7 +57,7 @@ class Blockchain {
   }
 
   isValidTransaction(tx) {
-    
+
     // mining rewards come from null fromAddress
     if (tx.fromAddress === 'reward') return true;
     
