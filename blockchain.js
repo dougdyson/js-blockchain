@@ -43,9 +43,11 @@ class Blockchain {
       miningHash = this.calculateHash(miningHash + nonce);
     }
     
-    // add pending transactions to chain and reward mining address
+    // add pending transactions to chain
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
+    
+    // reward mining address
     const fromAddress = 'reward';
     const amount      = this.miningReward;
     const signature   = null;
