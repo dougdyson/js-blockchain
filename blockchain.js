@@ -67,7 +67,7 @@ class Blockchain {
     
     // verify fromAddress transaction signature
     const key = ec.keyFromPublic(tx.fromAddress, 'hex')
-    const hash = this.calculateHash(tx.fromAddress);
+    const hash = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount);
     return key.verify(hash, tx.signature);
 
   }
