@@ -74,10 +74,14 @@ class Blockchain {
   addPendingTransaction(tx){
 
     if (this.isValidTransaction(tx)) {
-      tx.timestamp = Date.now();
-      tx.prevHash  = this.getLastBlock().hash;
-      tx.hash = this.calculateHash(tx.timestamp + tx.prevHash + tx.toAddress + tx.fromAddress + tx.amount);
-      this.pendingTransactions.push(tx)
+      const toAddress   = tx.toAddress;
+      const fromAddress = tx.fromAddress;
+      const amount      = tx.amount;
+      const timestamp   = Date.now();
+      const prevHash    = this.getLastBlock().hash;
+      const hash        = this.calculateHash(toAddress + fromAddress + amount + timestamp + prevHash);
+      const validTransaction = {toAddress, fromAddress, amount, timestamp, prevHash, hash}
+      this.pendingTransactions.push(validTransaction)
     }
     return this.pendingTransactions;
   }
