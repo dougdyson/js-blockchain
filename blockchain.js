@@ -63,7 +63,7 @@ class Blockchain {
     // transaction has a signature
     if (!tx.signature || tx.signature.length === 0) return false;
 
-    // has enough fromAccount balance to cover transaction amount
+    // fromAccount balance has enough to cover transaction amount
     if (!this.getAddressBalance(tx.fromAddress) > tx.amount) return false;
     
     // verify fromAddress transaction signature
