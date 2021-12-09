@@ -25,4 +25,4 @@ blockchain.minePendingTransactions(minerWallet.publicKey);
 blockchain.getAddressBalance(minerWallet.publicKey); //?
 blockchain.getAddressBalance(toWallet.publicKey); //?
 
-blockchain;//?
+blockchain;
