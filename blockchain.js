@@ -65,17 +65,9 @@ class Blockchain {
     if (!tx.signature || tx.signature.length === 0) return false;
     
     // verify signature
-    const signatureHash = this.calculateHash(tx.fromAddress);
-    const key = ec.keyFromPublic(tx.fromAddress, 'hex');
-    console.log('B signatureHash:');
-    console.log(signatureHash);
-    console.log('B key');
-    console.log(key);
-    console.log('B tx.signature:');
-    console.log(tx.signature);
-    if (key.verify(signatureHash, tx.signature)) return false;
-
-    return true;
+    const key = ec.keyFromPublic(tx.fromAddress, 'hex')
+    const msgHash = this.calculateHash(tx.fromAddress);
+    return key.verify(msgHash, tx.signature);
 
   }
   

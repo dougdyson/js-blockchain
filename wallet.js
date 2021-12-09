@@ -5,7 +5,8 @@ const ec = new EC('secp256k1');
 
 class Wallet {
   constructor(privateKey){
-    this.publicKey  = ec.keyFromPrivate(privateKey).getPublic('hex');
+    this.key = ec.keyFromPrivate(privateKey)
+    this.publicKey = this.key.getPublic('hex');
   }
 
   calculateHash(data){
@@ -20,7 +21,7 @@ class Wallet {
     console.log('W signatureHash:');
     console.log(signatureHash);
     
-    const signature = ec.sign(signatureHash, 'hex');
+    const signature = this.key.sign(signatureHash, 'hex');
     console.log('W signature:');
     console.log(signature);
     
