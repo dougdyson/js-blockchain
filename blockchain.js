@@ -57,7 +57,6 @@ class Blockchain {
   }
 
   isValidTransaction(tx) {
-
     // mining rewards come from null fromAddress
     if (tx.fromAddress === 'reward') return true;
     
@@ -72,16 +71,11 @@ class Blockchain {
   }
   
   addPendingTransaction(tx){
-
     if (this.isValidTransaction(tx)) {
-      const toAddress   = tx.toAddress;
-      const fromAddress = tx.fromAddress;
-      const amount      = tx.amount;
-      const timestamp   = Date.now();
-      const prevHash    = this.getLastBlock().hash;
-      const hash        = this.calculateHash(toAddress + fromAddress + amount + timestamp + prevHash);
-      const validTransaction = {toAddress, fromAddress, amount, timestamp, prevHash, hash}
-      this.pendingTransactions.push(validTransaction)
+      tx.timestamp   = Date.now();
+      tx.prevHash    = this.getLastBlock().hash;
+      tx.hash        = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount + tx.timestamp + tx.prevHash);
+      this.pendingTransactions.push(tx)
     }
     return this.pendingTransactions;
   }
