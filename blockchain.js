@@ -64,7 +64,7 @@ class Blockchain {
     if (!tx.signature || tx.signature.length === 0) return false;
 
     // has enough fromAccount balance to cover transaction amount
-    if (this.getAddressBalance(tx.fromAddress) > tx.amount) return false;
+    if (!this.getAddressBalance(tx.fromAddress) > tx.amount) return false;
     
     // verify fromAddress transaction signature
     const key = ec.keyFromPublic(tx.fromAddress, 'hex')
