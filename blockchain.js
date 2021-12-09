@@ -56,7 +56,7 @@ class Blockchain {
     return this.chain;
   }
 
-  isValidTransaction(tx) {
+  isValidTransaction(tx){
     // mining reward
     if (tx.fromAddress === 'reward') return true;
     
