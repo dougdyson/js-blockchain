@@ -15,19 +15,13 @@ class Wallet {
   
   newTransaction(toAddress, amount){
 
-    const fromAddress = this.publicKey;
-    
+    const fromAddress = this.publicKey;   
     const signatureHash = this.calculateHash(fromAddress);
-    console.log('W signatureHash:');
-    console.log(signatureHash);
-    
     const signature = this.key.sign(signatureHash, 'hex');
-    console.log('W signature:');
-    console.log(signature);
     
     return {toAddress, fromAddress, amount, signature};
   }
 
 }
 
-  module.exports = { Wallet };
+module.exports = { Wallet };
