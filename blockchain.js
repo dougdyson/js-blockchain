@@ -90,7 +90,6 @@ class Blockchain {
     }
     return balance;
   }
-  
 }
 
 module.exports = { Blockchain };
