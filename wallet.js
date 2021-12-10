@@ -14,9 +14,9 @@ class Wallet {
   }
   
   signTransaction(toAddress, amount){
-    const fromAddress   = this.publicKey;   
-    const signatureHash = this.calculateHash(toAddress + fromAddress + amount);
-    const signature     = this.key.sign(signatureHash, 'hex');
+    const fromAddress = this.publicKey;   
+    const hash        = this.calculateHash(toAddress + fromAddress + amount);
+    const signature   = this.key.sign(hash, 'hex');
     return {toAddress, fromAddress, amount, signature};
   }
 

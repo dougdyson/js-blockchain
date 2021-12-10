@@ -26,6 +26,10 @@ class Blockchain {
     return createHash('sha256').update(data).digest('hex');
   }
   
+  setMiningReward(reward){
+    this.miningReward = reward;
+  }
+  
   setPoWDifficulty(difficulty){
     this.powDifficulty = difficulty;
   }
@@ -51,7 +55,7 @@ class Blockchain {
     const fromAddress = 'reward';
     const amount      = this.miningReward;
     const signature   = '';
-    const transaction = {toAddress, fromAddress, amount, signature}
+    const transaction = {toAddress, fromAddress, amount, signature};
     this.addPendingTransaction(transaction);
     return this.chain;
   }
@@ -69,16 +73,14 @@ class Blockchain {
     if (!tx.signature || tx.signature.length === 0) {
       return false;
     }
-
     // verify fromAddress transaction signature
     const key  = ec.keyFromPublic(tx.fromAddress, 'hex')
     const hash = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount);
     if (!key.verify(hash, tx.signature)) {
       console.log(`INVALID SIGNATURE!`);
       return false;
-    }
-    
-    // all trasaction validity tests passed
+    } 
+    // all trasaction validity tests pass
     return true
   }
   
