@@ -61,15 +61,25 @@ class Blockchain {
     if (tx.fromAddress === 'reward') return true;
     
     // check fromAccount balance vs amount
-    if (this.getAddressBalance(tx.fromAddress) < tx.amount) return false;
-    
+    if (this.getAddressBalance(tx.fromAddress) < tx.amount) {
+      console.log(`INSUFFICENT FROM-ADDRESS BALANCE: ${this.getAddressBalance(tx.fromAddress)}`);
+      return false;
+    }
     // check for transaction signature
-    if (!tx.signature || tx.signature.length === 0) return false;
-    
+    if (!tx.signature || tx.signature.length === 0) {
+      return false;
+    }
+
     // verify fromAddress transaction signature
     const key  = ec.keyFromPublic(tx.fromAddress, 'hex')
     const hash = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount);
-    return key.verify(hash, tx.signature);
+    if (!key.verify(hash, tx.signature)) {
+      console.log(`INVALID SIGNATURE!`);
+      return false;
+    }
+    
+    // all trasaction validity tests passed
+    return true
   }
   
   addPendingTransaction(tx){
@@ -77,9 +87,12 @@ class Blockchain {
       tx.timestamp   = Date.now();
       tx.prevHash    = this.getLastBlock().hash;
       tx.hash        = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount + tx.prevHash);
-      this.pendingTransactions.push(tx)
+      this.pendingTransactions.push(tx);
+      return this.pendingTransactions;
+    } else {
+      console.log(`Pending transaction not added!`);
+      console.log(tx);
     }
-    return this.pendingTransactions;
   }
 
   getAddressBalance(address){ 

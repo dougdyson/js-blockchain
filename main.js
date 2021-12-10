@@ -10,14 +10,14 @@ const blockchain = new Blockchain(100);
 
 // mine and reward
 blockchain.minePendingTransactions(minerWallet.publicKey);
-blockchain.minePendingTransactions(minerWallet.publicKey);
+// blockchain.minePendingTransactions(minerWallet.publicKey);
 
 // sign transaction to transfer amount between wallets
 const transaction = minerWallet.signTransaction(toWallet.publicKey, 50);
-blockchain.getAddressBalance(minerWallet.publicKey); //?
 
 // make transfer transaction available for mining
 blockchain.addPendingTransaction(transaction);
+blockchain.getAddressBalance(minerWallet.publicKey); //?
 
 blockchain.minePendingTransactions(minerWallet.publicKey);
 blockchain.getAddressBalance(toWallet.publicKey); //?
