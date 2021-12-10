@@ -92,6 +92,7 @@ class Blockchain {
     } else {
       console.log(`Pending transaction not added!`);
       console.log(tx);
+      return false;
     }
   }
 
