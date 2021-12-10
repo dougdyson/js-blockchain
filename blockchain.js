@@ -79,7 +79,7 @@ class Blockchain {
       console.log(`INVALID SIGNATURE!`);
       return false;
     } 
-    // all trasaction validity tests pass
+    // all transaction validity tests pass
     return true
   }
   
