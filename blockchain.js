@@ -52,7 +52,7 @@ class Blockchain {
     this.pendingTransactions = [];
     
     // reward mining address
-    const fromAddress = 'reward';
+    const fromAddress = 'mining-reward';
     const amount      = this.miningReward;
     const signature   = '';
     this.addPendingTransaction({toAddress, fromAddress, amount, signature});
@@ -61,7 +61,7 @@ class Blockchain {
 
   isValidTransaction(tx){
     // mining reward
-    if (tx.fromAddress === 'reward') return true;
+    if (tx.fromAddress === 'mining-reward') return true;
     
     // check fromAccount balance vs amount
     if (this.getAddressBalance(tx.fromAddress) < tx.amount) {
