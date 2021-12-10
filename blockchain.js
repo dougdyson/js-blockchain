@@ -70,6 +70,7 @@ class Blockchain {
     }
     // check for transaction signature
     if (!tx.signature || tx.signature.length === 0) {
+      onsole.log(`NO SIGNATURE!`);
       return false;
     }
     // verify fromAddress transaction signature
