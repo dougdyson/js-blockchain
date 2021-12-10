@@ -60,8 +60,8 @@ class Blockchain {
     // mining reward
     if (tx.fromAddress === 'reward') return true;
     
-    // check fromAccount balance
-    if (!this.getAddressBalance(tx.fromAddress) >= tx.amount) return false;
+    // check fromAccount balance vs amount
+    if (this.getAddressBalance(tx.fromAddress) < tx.amount) return false;
     
     // check for transaction signature
     if (!tx.signature || tx.signature.length === 0) return false;
