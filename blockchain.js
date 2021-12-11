@@ -5,7 +5,7 @@ const ec = new EC('secp256k1');
 
 class Blockchain {
   
-  constructor(powDifficulty) {
+  constructor(powDifficulty){
     this.chain  = [this.addGenesisBlock()];
     this.powDifficulty = powDifficulty; // throttle speed
     this.miningReward  = 100;
