@@ -85,7 +85,7 @@ class Blockchain {
   }
   
   addPendingTransaction(tx){
-    if (this.isValidTransaction(tx)) {
+    if (this.isValidTransaction(tx)){
       tx.timestamp = Date.now();
       tx.prevHash  = this.getLastBlock().hash;
       tx.hash      = this.calculateHash(tx.toAddress + tx.fromAddress + tx.amount + tx.prevHash);
