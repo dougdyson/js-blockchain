@@ -2,7 +2,7 @@
 Super simple blockchain (simulating network consensus)
 
 [x] learn blockchain fundamentals
-[] transaction flow
+[X] transaction flow
 [] ethereum vs blockchain vs cadence
 [] conduct experiments?
 
