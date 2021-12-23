@@ -9,7 +9,7 @@ Super simple blockchain (simulating network consensus)
 ## A Story of a Tool and a Rabbit Hole
 I use Quokka, which is an awesome inline real-time JS evaluation tool, allowing me see variable values right in the IDE in real time without having to console.log out.
 
-However, after some hours, I discovered Quokka updates use both Date.now() and Math.random().
+However, after some hours, I discovered Quokka updates use both Date.now() and Math.random() and reinterpret my code every keystroke, which defeats the purpose.
 
 ## Classes
 I used OOP with a blockchain class, instead of a functional approach. This was due to having to reference the previous hash, which is the last element in the array. As per some examples, classes make app development speedy when done but feel there is more code than necessary. Tripped up more than once by missing a 'this'.  If I refactored this project, it would be with a functional programming approach.
