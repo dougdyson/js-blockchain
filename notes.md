@@ -16,3 +16,5 @@ I used OOP with a blockchain class, instead of a functional approach. This was d
 
 ## Next Steps
 Going to take this code and create a React front-end, with Jest tests and Storybook. Will refactor to functional programming from classes.
+
+Also, going to have some fun with mining and make it so that the user has to press a button a number times, depending upon the blockchain's PoW difficulty. A great opportunity to incorporate some fun animations too.
