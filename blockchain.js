@@ -104,6 +104,10 @@ class Blockchain {
       if (block.toAddress === address) balance += block.amount;
       if (block.fromAddress === address) balance -= block.amount;
     }
+    for (const block of this.pendingTransactions) {
+      if (block.toAddress === address) balance += block.amount;
+      if (block.fromAddress === address) balance -= block.amount;
+    }
     return balance;
   }
 }
