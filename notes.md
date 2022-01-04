@@ -3,7 +3,7 @@ Super simple blockchain (simulating network consensus)
 
 [x] learn blockchain fundamentals
 [X] transaction flow
-[] ethereum vs blockchain vs cadence
+[] ethereum vs blockchain vs cadence <-- good idea!
 [] conduct experiments?
 
 ## A Story of a Tool and a Rabbit Hole
