@@ -23,5 +23,5 @@ blockchain.minePendingTransactions(minerWallet.publicKey);
 blockchain.getAddressBalance(minerWallet.publicKey); //?
 blockchain.getAddressBalance(toWallet.publicKey); //?
 
-// console log blockchain data
+// console log blockchain meta and data
 console.log(blockchain);
