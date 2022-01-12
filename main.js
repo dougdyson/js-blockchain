@@ -13,7 +13,7 @@ blockchain.minePendingTransactions(minerWallet.publicKey);
 blockchain.minePendingTransactions(minerWallet.publicKey);
 
 // sign transaction to transfer amount between wallets
-const transaction = minerWallet.signTransaction(toWallet.publicKey, 50);
+const transaction = minerWallet.signTransaction(toWallet.publicKey, 1);
 
 // make transfer transaction pending for mining
 // TODO: make this an array
