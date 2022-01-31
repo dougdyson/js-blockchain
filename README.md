@@ -1,4 +1,4 @@
-Super simple, standalone blockchain built for learning.
+#Super simple, standalone blockchain built for learning.
 
 Going to start a new project and put a front-end to this learning experience.
 
