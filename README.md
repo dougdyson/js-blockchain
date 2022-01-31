@@ -10,4 +10,4 @@ I also have technical questions around how/when pending transactions are managed
 
 Other learning experiments would to include different consensus mechanisims.
 
-Going to start a new project and put a front-end to this learning experience.
+I am going to start a new project and put a front-end to this learning experience.
