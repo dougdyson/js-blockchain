@@ -18,8 +18,10 @@ const transaction = minerWallet.signTransaction(toWallet.publicKey, 1);
 // make transfer transaction pending for mining
 blockchain.addPendingTransaction(transaction);
 
+// mine and reward
 blockchain.minePendingTransactions(minerWallet.publicKey);
 
+// console log address balances
 console.log(blockchain.getAddressBalance(minerWallet.publicKey));
 console.log(blockchain.getAddressBalance(toWallet.publicKey));
 
