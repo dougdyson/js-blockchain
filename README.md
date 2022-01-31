@@ -2,7 +2,7 @@
 
 main.js is a testing file, which creates the blockchain, mines pending transactions, adds pending transactions and rewards miners.
 
-blockchain.js holds most the blockchain code. There is wallet.js which really should be incorporated into blockchain.js (DRY!)
+blockchain.js holds most of the blockchain code. There is wallet.js, which really should be incorporated into blockchain.js (DRY!)
 
 I used classes as an experiment but will rewrite with functional programming, It definitely makes it simple to use in interface as an object but it unnecessarily complex. Several times I tripped over using, or not using, a 'this' and spending time debugging. Degugging takes longer too, as there is more code overall when using a class in this project.
 
