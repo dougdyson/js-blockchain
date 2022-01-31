@@ -16,7 +16,6 @@ blockchain.minePendingTransactions(minerWallet.publicKey);
 const transaction = minerWallet.signTransaction(toWallet.publicKey, 1);
 
 // make transfer transaction pending for mining
-// TODO: make this an array
 blockchain.addPendingTransaction(transaction);
 
 blockchain.minePendingTransactions(minerWallet.publicKey);
