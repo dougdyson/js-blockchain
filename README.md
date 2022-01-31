@@ -8,6 +8,6 @@ I used classes as an experiment but will rewrite with functional programming, It
 
 I also have technical questions around how/when pending transactions are managed to avoid double spending and how perhaps multiple blockchains might be supported, at least in my model.
 
-Other learning experiments would to include different consensus mechanisims.
+Other learning experiments to include different consensus mechanisims.
 
 I am going to start a new project and put a front-end to this learning experience.
