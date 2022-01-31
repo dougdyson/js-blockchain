@@ -1,8 +1,5 @@
 # Super simple, standalone blockchain built for learning.
 
-Going to start a new project and put a front-end to this learning experience.
-
-
 main.js is a testing file, which creates the blockchain, mines pending transactions, adds pending transactions and rewards miners.
 
 blockchain.js holds most the blockchain code. There is wallet.js which really should be incorporated into blockchain.js (DRY!)
@@ -12,3 +9,5 @@ I used classes as an experiment but will rewrite with functional programming, It
 I also have technical questions around how/when pending transactions are managed to avoid double spending and how to perhaps multiple blockchains might be supported, at least in my model.
 
 Other learning experiments would to include different consensus mechanisims.
+
+Going to start a new project and put a front-end to this learning experience.
