@@ -19,8 +19,9 @@ const transaction = minerWallet.signTransaction(toWallet.publicKey, 1);
 blockchain.addPendingTransaction(transaction);
 
 blockchain.minePendingTransactions(minerWallet.publicKey);
-blockchain.getAddressBalance(minerWallet.publicKey); //?
-blockchain.getAddressBalance(toWallet.publicKey); //?
+
+console.log(blockchain.getAddressBalance(minerWallet.publicKey));
+console.log(blockchain.getAddressBalance(toWallet.publicKey));
 
 // console log blockchain meta and data
 console.log(blockchain);
