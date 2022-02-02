@@ -48,7 +48,7 @@ class Blockchain {
       miningHash = this.calculateHash(miningHash + nonce);
     }
     
-    // add pending transactions to chain
+    // add pending transactions to chain and reset
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
     
