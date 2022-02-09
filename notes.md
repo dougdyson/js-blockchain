@@ -21,4 +21,4 @@ Also, going to have some fun with mining and make it so that the user has to pre
 
 Also, make sure to check pendingTransactions when getting available balance for an address. How is this done in Bitcoin? Ethereum?
 
-Maybe examine PoS.
+Maybe examine PoS and Zero Knowledge.
