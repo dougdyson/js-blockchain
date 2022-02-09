@@ -1,3 +1,5 @@
+// TODO: DRY up this code by refactoring it into blockchain.js
+
 const { createHash } = require('crypto');
 
 const EC = require('elliptic').ec;

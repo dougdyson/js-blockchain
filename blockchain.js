@@ -7,9 +7,9 @@ class Blockchain {
   
   constructor(code, powDifficulty, reward){
     this.chain  = [this.addGenesisBlock()];
-    this.code   = code; 
-    this.powDifficulty = powDifficulty; // throttle speed
-    this.miningReward  = reward;
+    this.code   = code; // ie. BTC, ETH, FLOW, etc.
+    this.powDifficulty = powDifficulty; // mining throttle speed
+    this.miningReward  = reward; // amount for successful mining
     this.pendingTransactions = [];
   }
   
@@ -48,7 +48,7 @@ class Blockchain {
       miningHash = this.calculateHash(miningHash + nonce);
     }
     
-    // add pending transactions to chain
+    // add pending transactions to chain and reset
     this.chain = this.chain.concat(this.pendingTransactions);
     this.pendingTransactions = [];
     
